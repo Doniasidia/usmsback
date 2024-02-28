@@ -11,6 +11,4 @@ export class Payment{
   paymentstate: string;
   @Column()
   paymentdate: Date;
-  @ManyToOne(() => User)
-  user: User;
 }

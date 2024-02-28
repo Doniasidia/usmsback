@@ -1,4 +1,4 @@
-import { Module, Session } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -9,27 +9,29 @@ import { Invoice } from './entity/invoice';
 import { Message } from './entity/message';
 import { Payment } from './entity/payment';
 import { Subplan } from './entity/subplan';
-import { Subscription } from 'rxjs';
+import { Subscription } from './entity/subscription';
 import { Sessions } from './entity/sessions';
-
+import { StatisticsModule } from './statistics/statistics.module'; // Import the StatisticsModule
 
 @Module({
-  imports: [ConfigModule.forRoot(),
+  imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: 'postgres' , // Replace with your database type (e.g., 'mysql')
-        host: configService.get('DATABASE_HOST'), 
-        port: configService.get('DATABASE_PORT'), 
+        type: 'postgres',
+        host: configService.get('DATABASE_HOST'),
+        port: configService.get<number>('DATABASE_PORT'),
         username: configService.get('DATABASE_USER'),
         password: configService.get('DATABASE_PASSWORD'),
-        database: configService.get('DATABASE_NAME'), // Replace with your database name
-        entities: [User,Calendar,Invoice,Message,Payment,Sessions
-          ,Subplan,Subscription], // List your entities here
-        synchronize: true, // Set to false in production for safety
+        database: configService.get('DATABASE_NAME'),
+        entities: [User, Calendar, Invoice, Message, Payment, Sessions, Subplan, Subscription],
+        synchronize: true,
       }),
       inject: [ConfigService],
-    }),],
+    }),
+    StatisticsModule, // Include the StatisticsModule in the imports array
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
