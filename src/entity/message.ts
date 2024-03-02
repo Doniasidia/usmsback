@@ -1,6 +1,5 @@
-// message.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { User } from './user'; // Adjust the import path as per your project structure
+import { User } from './user'; // Assuming the User entity is defined in user.ts
 
 @Entity()
 export class Message {
@@ -8,18 +7,19 @@ export class Message {
   id: number;
 
   @Column()
-  datesent: string;
-
-  @Column()
   content: string;
-  @Column()
-  destinataire: string;
-  @Column()
-  emetteur: string;
 
-  @ManyToOne(() => User, user => user.messages_envoyes) // Assuming this is the correct relationship
-  emetteu: User;
+  @Column()
+  dateSent: Date;
 
-  @ManyToOne(() => User, user => user.messages_recus) // Assuming this is the correct relationship
-  destinatair: User;
+  // Define Many-to-One relationship with the sender (User)
+  @ManyToOne(() => User, user => user.messages_envoyes)
+  sender: User;
+
+  // Define Many-to-One relationship with the recipient (User)
+  @ManyToOne(() => User, user => user.messages_recus)
+  recipient: User;
+
+  // Other properties and relationships as needed
 }
+

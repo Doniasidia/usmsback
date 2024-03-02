@@ -1,7 +1,7 @@
-// user.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany} from 'typeorm';
+import { LoginCredentials } from 'src/entity/LoginCredentials';
+import { Role } from 'src/enums/role';
 import { Message } from './message';
-
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -10,36 +10,23 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
-  password: string;
-
-  @Column()
-  role: string;
-
+  @Column({ type: "enum", enum: Role })
+  role: Role;
   @Column()
   email: string;
+  @OneToMany(() => Message, message => message.sender)
+  messages_envoyes: Message[];
 
-  @Column()
-  telNumber: string;
-
-  @Column({ default: false }) // Add isAdmin property with a default value of false
+  @OneToMany(() => Message, message => message.recipient)
+  messages_recus: Message[];
+  @Column({ default: false }) // Assuming isAdmin is a boolean property
   isAdmin: boolean;
 
-  @Column({ default: false }) // Add isSuperAdmin property with a default value of false
+  @Column({ default: false }) // Assuming isSuperAdmin is a boolean property
   isSuperAdmin: boolean;
+  
+ 
 
-  @OneToMany(() => Message, message => message.destinataire)
-  messages_recus: Message[];
-
-  @OneToMany(() => Message, message => message.emetteur)
-  messages_envoyes: Message[];
+  @OneToOne(() => LoginCredentials, (credentials) => credentials.user)
+  credentials: LoginCredentials;
 }
-
-@Entity()
-export class Admin extends User {}
-
-@Entity()
-export class Client extends User {}
-
-@Entity()
-export class Subscriber extends User {}

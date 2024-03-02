@@ -1,9 +1,13 @@
 // create-superadmin.ts
 
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '../src/app.module'; // Adjust the path as needed
-import { UserService } from '../src/entity/user.service'; // Adjust the path as needed
-import { User } from '../src/entity/user'; // Assuming the User entity is defined in user.ts
+import { AppModule } from '../src/app.module';
+import { UserService } from '../src/entity/user.service';
+import { User } from '../src/entity/user';
+import { Admin } from 'src/entity/admin';
+import { Role } from 'src/enums/role';
+import { LoginCredentials } from 'src/entity/LoginCredentials';
+
 
 async function main() {
   const app = await NestFactory.createApplicationContext(AppModule);
@@ -13,15 +17,17 @@ async function main() {
     
     const superadmin: User = new User();
     superadmin.name = 'admin';
-    superadmin.password = 'password';
-    superadmin.role = 'admin';
+    const credentials = new LoginCredentials();
+    credentials.hashedPassword = 'hashedPassword';
+    credentials.salt = 'salt';
+    superadmin.credentials = credentials;
+    superadmin.role =  Role.ADMIN;
     superadmin.email = 'admin@example.com';
-    superadmin.telNumber = '1234567890';
+    credentials.tel_numb = '1234567890';
     superadmin.isAdmin = true;
     superadmin.isSuperAdmin = true;
-    // Set other properties as needed
 
-    const createdSuperadmin = await userService.createSuperAdmin(superadmin);
+    const createdSuperadmin = await userService.createSuperAdmin(superadmin); 
 
     console.log('Superadmin created:', createdSuperadmin);
   } catch (error) {

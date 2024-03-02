@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Subscription } from 'src/entity/subscription';
 
 @Entity()
 export class Calendar {
@@ -7,10 +8,12 @@ export class Calendar {
 
   @Column()
   startDate: Date;
+
   @Column()
   endDate: Date;
-  @Column()
-  type: string;
-  
-  
+
+  @ManyToOne(() => Subscription, (subscription) => subscription.id)
+  subscription: Subscription;
+
+  
 }

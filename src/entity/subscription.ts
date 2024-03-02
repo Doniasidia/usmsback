@@ -1,17 +1,33 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Subscriber } from 'src/entity/subscriber';
+import { Subplan } from 'src/entity/subplan';
+import { PaymentMethod } from 'src/enums/paymentmethod';
+import { Status } from 'src/enums/status';
 
 @Entity()
-export class Subscription{
+export class Subscription {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  sessionnb: number;
+  date_debut: Date;
+
   @Column()
-  subplan: string;
+  date_fin: Date;
+
   @Column()
-  substate: string;
-  @Column()
-  paymentmethode:string;
-  
+  montant: number;
+  @Column({ type: "enum", enum: PaymentMethod})
+  payment_method: PaymentMethod;
+
+  @Column({ type: "enum", enum: Status})
+  status: Status;
+
+  @ManyToOne(() => Subscriber, (subscriber) => subscriber.id)
+  subscriber: Subscriber;
+
+  @ManyToOne(() => Subplan, (subplan) => subplan.id)
+  subplan: Subplan;
+
+  
 }

@@ -1,16 +1,22 @@
+import { PaymentMethod } from 'src/enums/paymentmethod';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Invoice { 
+export class Invoice {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   amount: number;
-  @Column()
-  invstate: string;
-  @Column()
-  invodate: string;
 
-  
+  @Column()
+  issueDate: Date;
+
+  @Column()
+  dueDate: Date;
+
+  @Column({ type: "enum", enum: PaymentMethod})
+  payment_method: PaymentMethod;
+
+ 
 }

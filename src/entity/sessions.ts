@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Calendar } from 'src/entity/calendar';
 
 @Entity()
 export class Sessions {
@@ -6,9 +7,13 @@ export class Sessions {
   id: number;
 
   @Column()
-  startdate: Date;
+  startDate: Date;
+
   @Column()
-  enddate: Date;
-  
-  
+  endDate: Date;
+
+  @ManyToOne(() => Calendar, (calendar) => calendar.id)
+  calendar: Calendar;
+
+ 
 }

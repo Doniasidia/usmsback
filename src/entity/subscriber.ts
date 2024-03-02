@@ -1,18 +1,14 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Subscription } from 'src/entity/subscription';
+import { Client } from 'src/entity/client';
 import { PaymentMethod } from 'src/enums/paymentmethod';
 import { Status } from 'src/enums/status';
+import { User } from './user';
 
 @Entity()
-export class Payment {
+export class Subscriber extends User{
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  amount: number;
-
-  @Column()
-  paymentDate: Date;
+  
 
   @Column({ type: "enum", enum: PaymentMethod})
   payment_method: PaymentMethod;
@@ -20,8 +16,11 @@ export class Payment {
   @Column({ type: "enum", enum: Status})
   status: Status;
 
-  @ManyToOne(() => Subscription, (subscription) => subscription.id)
-  subscription: Subscription;
+  @Column()
+  inscription_date: Date;
 
-  
+  
+
+  @ManyToOne(() => Client, (client) => client.subscribers)
+  client: Client;
 }
