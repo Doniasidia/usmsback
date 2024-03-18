@@ -1,17 +1,17 @@
 // user.controller.ts
 import { Controller, Get, Post, Put, Delete, Param, Body, UseGuards } from '@nestjs/common';
-import { User } from '../entity/user'; 
-import { UserService } from '../entity/user.service';
+import { Client } from 'src/entity/client';
+import { ClientService } from './client.service';
 // import { CreateUserDto, UpdateUserDto } from '../dto/user.dto'; 
 // import { AdminGuard } from 'src/guards/adminguards';
 // @UseGuards(AdminGuard)
-@Controller('users')
-export class UserController {
+@Controller('api/clients')
+export class ClientController {
 
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: ClientService) {}
 
   @Get()
-  getAllUsers(): User[] {
+  getAllUsers(): Client[] {
     // return []
     return this.userService.findAllUsers();
   }
@@ -22,7 +22,7 @@ export class UserController {
   // }
 
   @Post()
-  createUser(@Body() user: User): User {
+  createUser(@Body() user: Client): Client {
     return this.userService.createUser(user);
   }
 
@@ -34,5 +34,5 @@ export class UserController {
   // @Delete(':id')
   // deleteUser(@Param('id') id: string): void {
   //   this.userService.deleteUser(+id);
-  // }
+  // }
 }

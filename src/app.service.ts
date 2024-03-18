@@ -11,6 +11,7 @@ export class AppService {
 
 
   healthcheck(): string{
-    return "app is running"
+    return "app is running successfully"
   }
+  
 }

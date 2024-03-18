@@ -3,7 +3,6 @@ import { Client } from 'src/entity/client';
 import { PaymentMethod } from 'src/enums/paymentmethod';
 import { Status } from 'src/enums/status';
 import { User } from './user';
-import { Exclude } from 'class-transformer'; 
 
 @Entity()
 export class Subscriber extends User{
@@ -19,9 +18,8 @@ export class Subscriber extends User{
 
   @Column()
   inscription_date: Date;
-  @Column({ nullable: true }) // Mark email as nullable
-  @Exclude() // Exclude email property from serialization
-  email: string | null;
+  @Column({ unique: true })
+  email? : string;
 
   
 
