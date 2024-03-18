@@ -37,13 +37,14 @@ export class UserService {
   }
 
   createSuperAdmin(superAdmin: User): User {
-    // Logic to create a new superadmin
-    superAdmin.isAdmin = true; // Set the isAdmin property to true
-    superAdmin.isSuperAdmin = true; // Set the isSuperAdmin property to true
+  
+    superAdmin.isAdmin = true; 
+    superAdmin.isSuperAdmin = true; 
 
-    // Add the superadmin to the list of users
     this.users.push(superAdmin);
 
-    return superAdmin; // Return the created superadmin
+    return superAdmin; 
   }
 }
+
+

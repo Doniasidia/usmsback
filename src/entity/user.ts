@@ -24,8 +24,7 @@ export class User {
 
   @Column({ default: false }) // Assuming isSuperAdmin is a boolean property
   isSuperAdmin: boolean;
-  
- 
+
 
   @OneToOne(() => LoginCredentials, (credentials) => credentials.user)
   credentials: LoginCredentials;

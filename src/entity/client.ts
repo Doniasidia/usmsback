@@ -11,10 +11,19 @@ export class Client extends User{
   id: number;
 
   @Column()
-  address: string;
+  NomEtablissement: string;
   
-  @Column({ type: "enum", enum: Status})
-  status: Status;
+  //@Column({ type: "enum", enum: Status})
+  //status: Status;
+  @Column()
+  email: string;
+  @Column()
+  tel: string; 
+   @Column()
+  password: string;
+  @Column()
+  pack: string;
+
  
   @OneToMany(() => Subscriber, (subscriber) => subscriber.id)
   subscribers: Subscriber[];

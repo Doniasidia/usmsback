@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Subscription } from 'src/entity/subscription';
 import { PaymentMethod } from 'src/enums/paymentmethod';
-import { Status } from 'src/enums/status';
+import { Status } from "src/enums/status";
+
 
 @Entity()
 export class Payment {

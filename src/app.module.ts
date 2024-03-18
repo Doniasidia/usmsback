@@ -15,6 +15,8 @@ import { Client } from 'src/entity/client';
 import { Admin } from 'src/entity/admin';
 import { User } from 'src/entity/user';
 import { LoginCredentials } from 'src/entity/LoginCredentials';
+import { UserController } from './controllers/user.controller';
+import { UserService } from './entity/user.service';
 
 @Module({
   imports: [
@@ -46,7 +48,7 @@ import { LoginCredentials } from 'src/entity/LoginCredentials';
       inject: [ConfigService],
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController ,UserController],
+  providers: [AppService,UserService],
 })
 export class AppModule {}
