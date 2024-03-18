@@ -9,6 +9,12 @@ export class Admin extends User{
   id: number;
   @Column()
   email: string;
+  @Column({ default: false }) // Assuming isAdmin is a boolean property
+  isAdmin: boolean;
+
+  @Column({ default: false }) // Assuming isSuperAdmin is a boolean property
+  isSuperAdmin: boolean;
+ 
   
 
  

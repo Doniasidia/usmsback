@@ -15,6 +15,10 @@ import { Client } from 'src/entity/client';
 import { Admin } from 'src/entity/admin';
 import { User } from 'src/entity/user';
 import { LoginCredentials } from 'src/entity/LoginCredentials';
+import { ClientService } from './admin/client-management.ts/client.service';
+import { ClientController } from './admin/client-management.ts/client.controller';
+import { ClientModule } from './admin/client-management.ts/client.module';
+
 
 @Module({
   imports: [
@@ -45,8 +49,10 @@ import { LoginCredentials } from 'src/entity/LoginCredentials';
       }),
       inject: [ConfigService],
     }),
+    ClientModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ClientController],
+  providers: [AppService, ClientService],
 })
 export class AppModule {}
+

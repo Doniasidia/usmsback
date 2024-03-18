@@ -18,6 +18,8 @@ export class Subscriber extends User{
 
   @Column()
   inscription_date: Date;
+  @Column({ unique: true })
+  email? : string;
 
   
 
